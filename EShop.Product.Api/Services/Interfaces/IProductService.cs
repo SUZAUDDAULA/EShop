@@ -1,4 +1,5 @@
-﻿using EShop.Infrastructure.Event;
+﻿using EShop.Infrastructure.Command.Product;
+using EShop.Infrastructure.Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace EShop.Product.Api.Services.Interfaces
     public interface IProductService
     {
         Task<ProductCreated> GetProduct(Guid ProductId);
-        Task<ProductCreated> AddProduct(ProductCreated product);
+        Task<ProductCreated> AddProduct(CreateProduct product);
     }
 }

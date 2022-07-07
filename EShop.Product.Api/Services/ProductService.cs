@@ -1,4 +1,6 @@
-﻿using EShop.Infrastructure.Event;
+﻿using EShop.Infrastructure.Command.Product;
+using EShop.Infrastructure.Event;
+using EShop.Product.Api.Repositories.Interfaces;
 using EShop.Product.Api.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,14 +11,22 @@ namespace EShop.Product.Api.Services
 {
     public class ProductService : IProductService
     {
-        public Task<ProductCreated> AddProduct(ProductCreated product)
+        private readonly IProductRepository _repository;
+
+        public ProductService(IProductRepository repository)
         {
-            return null;
+            _repository = repository;
         }
 
-        public Task<ProductCreated> GetProduct(Guid ProductId)
+        public async Task<ProductCreated> AddProduct(CreateProduct product)
         {
-            return null;
+            product.ProductId = Guid.NewGuid();
+            return await _repository.AddProduct(product);
+        }
+
+        public async Task<ProductCreated> GetProduct(Guid ProductId)
+        {
+            return await _repository.GetProduct(ProductId) ;
         }
     }
 }
