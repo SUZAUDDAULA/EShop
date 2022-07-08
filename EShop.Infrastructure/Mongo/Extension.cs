@@ -16,11 +16,16 @@ namespace EShop.Infrastructure.Mongo
             var mongoConfig = new MongoConfig();
             configSection.Bind(mongoConfig);
 
+            services.AddSingleton<IMongoClient>(client => {
+                return new MongoClient(mongoConfig.ConnectionString);
+            });
             services.AddSingleton<IMongoDatabase>(client =>
             {
                 var mongoClient = client.GetService<IMongoClient>();
                 return mongoClient.GetDatabase(mongoConfig.Database);
             });
+
+            services.AddSingleton<IDatabaseInitializer, MongoInitializer>();
         }
     }
 }

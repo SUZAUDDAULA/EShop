@@ -48,6 +48,9 @@ namespace EShop.Product.Api
 
             app.UseAuthorization();
 
+            var dbInitializer = app.ApplicationServices.GetService<IDatabaseInitializer>();
+            dbInitializer.InitializeAsync();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

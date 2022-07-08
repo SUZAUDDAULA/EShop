@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EShop.Product.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -20,13 +20,13 @@ namespace EShop.Product.Api.Controllers
             _productService = productService;
         }
 
-        public async Task<IActionResult> Get(Guid ProductId)
+        public async Task<IActionResult> GetProductById(string ProductId)
         {
             var product = await _productService.GetProduct(ProductId);
             return Ok(product);
         }
-
-        public async Task<IActionResult> Add([FromForm] CreateProduct product)
+        [HttpPost]
+        public async Task<IActionResult> AddProduct([FromForm] CreateProduct product)
         {
             var addProduct = await _productService.AddProduct(product);
             return Ok(addProduct);
