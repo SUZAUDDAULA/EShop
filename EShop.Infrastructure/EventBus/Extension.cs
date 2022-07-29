@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using EShop.Infrastructure.Query.Product;
+using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -24,6 +25,7 @@ namespace EShop.Infrastructure.EventBus
                         hostcfg.Password(rabbitMq.Password);
                     });
                 }));
+                x.AddRequestClient<GetProductById>();
             });
 
             return services;

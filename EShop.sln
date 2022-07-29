@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.ApiGetway", "EShop.ApiGetway\EShop.ApiGetway.csproj", "{B1A1FC1A-0325-4D33-A2E8-03B448A04F55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.ApiGetway", "EShop.ApiGetway\EShop.ApiGetway.csproj", "{B1A1FC1A-0325-4D33-A2E8-03B448A04F55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.User.Api", "EShop.User.Api\EShop.User.Api.csproj", "{07E6826C-250C-481D-89FE-8B3CA77A48EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.User.Api", "EShop.User.Api\EShop.User.Api.csproj", "{07E6826C-250C-481D-89FE-8B3CA77A48EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Product.Api", "EShop.Product.Api\EShop.Product.Api.csproj", "{3D33B9AC-411A-48E1-8B17-89539795FD14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Product.Api", "EShop.Product.Api\EShop.Product.Api.csproj", "{3D33B9AC-411A-48E1-8B17-89539795FD14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Order.Api", "EShop.Order.Api\EShop.Order.Api.csproj", "{8F5CB0C4-7621-4EE1-8015-A1ACA4DA76F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Order.Api", "EShop.Order.Api\EShop.Order.Api.csproj", "{8F5CB0C4-7621-4EE1-8015-A1ACA4DA76F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Infrastructure", "EShop.Infrastructure\EShop.Infrastructure.csproj", "{0B97ACC8-B287-4C1A-A1E3-7483968E0A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Infrastructure", "EShop.Infrastructure\EShop.Infrastructure.csproj", "{0B97ACC8-B287-4C1A-A1E3-7483968E0A2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Product.Query.Api", "EShop.Product.Query.Api\EShop.Product.Query.Api.csproj", "{8DCFBD12-EA10-4BF8-9BB2-F6D0F39D54AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Product.DataProvider", "EShop.Product.DataProvider\EShop.Product.DataProvider.csproj", "{0A8631F9-6143-447D-AC96-EC82D0CA5477}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{0B97ACC8-B287-4C1A-A1E3-7483968E0A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B97ACC8-B287-4C1A-A1E3-7483968E0A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B97ACC8-B287-4C1A-A1E3-7483968E0A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DCFBD12-EA10-4BF8-9BB2-F6D0F39D54AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DCFBD12-EA10-4BF8-9BB2-F6D0F39D54AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DCFBD12-EA10-4BF8-9BB2-F6D0F39D54AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DCFBD12-EA10-4BF8-9BB2-F6D0F39D54AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8631F9-6143-447D-AC96-EC82D0CA5477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8631F9-6143-447D-AC96-EC82D0CA5477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8631F9-6143-447D-AC96-EC82D0CA5477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8631F9-6143-447D-AC96-EC82D0CA5477}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

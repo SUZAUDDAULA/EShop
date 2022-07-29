@@ -1,13 +1,13 @@
 ﻿using EShop.Infrastructure.Command.Product;
 using EShop.Infrastructure.Event;
-using EShop.Product.Api.Repositories.Interfaces;
+using EShop.Product.DataProvider.Repositories.Interfaces;
 using EShop.Product.Api.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EShop.Product.Api.Services
+namespace EShop.Product.DataProvider.Services
 {
     public class ProductService : IProductService
     {

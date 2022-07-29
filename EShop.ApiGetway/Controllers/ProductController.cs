@@ -1,6 +1,10 @@
 ﻿using EShop.Infrastructure.Command.Product;
+using EShop.Infrastructure.Event;
+using EShop.Infrastructure.Query.Product;
+using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +16,29 @@ namespace EShop.ApiGetway.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        private readonly IBusControl _bus;
+        private readonly IConfiguration _configuration;
+        private readonly IRequestClient<GetProductById> _requestClient;
+
+        public ProductController(IBusControl bus, IConfiguration configuration, IRequestClient<GetProductById> request)
         {
-            await Task.CompletedTask;
-            return Accepted("Get Product Method Called");
+            _bus = bus;
+            _requestClient = request;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(string productId)
+        {
+            var prdct = new GetProductById() { ProductId = productId };
+            var product = await _requestClient.GetResponse<ProductCreated>(prdct);
+            return Accepted();
         }
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CreateProduct product)
         {
-            await Task.CompletedTask;
+            var uri = new Uri("rabbitmq://localhost/create_product");
+            var endPoint =await _bus.GetSendEndpoint(uri);
+            await endPoint.Send(product);
             return Accepted("Product Created");
         }
     }

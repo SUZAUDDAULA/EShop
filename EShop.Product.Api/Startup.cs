@@ -1,19 +1,17 @@
+using EShop.Infrastructure.EventBus;
+using EShop.Infrastructure.Mongo;
+using EShop.Product.Api.Handlers;
+using EShop.Product.Api.Services.Interfaces;
+using EShop.Product.DataProvider.Repositories;
+using EShop.Product.DataProvider.Repositories.Interfaces;
+using EShop.Product.DataProvider.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EShop.Infrastructure.Mongo;
-using EShop.Product.Api.Services.Interfaces;
-using EShop.Product.Api.Services;
-using EShop.Product.Api.Repositories;
-using EShop.Product.Api.Repositories.Interfaces;
 
 namespace EShop.Product.Api
 {
@@ -34,6 +32,27 @@ namespace EShop.Product.Api
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<CreateProductHandler>();
+
+            var rabbitmqOption = new RabbitMqOption();
+            Configuration.GetSection("rabbitmq").Bind(rabbitmqOption);
+
+            services.AddMassTransit(x => {
+                x.AddConsumer<CreateProductHandler>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg => {
+                    cfg.Host(new Uri(rabbitmqOption.ConnectionString), hostConfig => {
+                        hostConfig.Username(rabbitmqOption.Username);
+                        hostConfig.Password(rabbitmqOption.Password);
+                    });
+
+                    cfg.ReceiveEndpoint("create_product", ep => {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(retryConfig => { retryConfig.Interval(2, 100); });
+                        ep.ConfigureConsumer<CreateProductHandler>(provider);
+                    });
+                }));
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,13 +67,14 @@ namespace EShop.Product.Api
 
             app.UseAuthorization();
 
-            var dbInitializer = app.ApplicationServices.GetService<IDatabaseInitializer>();
-            dbInitializer.InitializeAsync();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            var busControl = app.ApplicationServices.GetService<IBusControl>();
+            busControl.Start();
+            var dbInitializer = app.ApplicationServices.GetService<IDatabaseInitializer>();
+            dbInitializer.InitializeAsync();
         }
     }
 }

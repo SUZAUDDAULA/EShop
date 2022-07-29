@@ -1,13 +1,13 @@
 ﻿using EShop.Infrastructure.Command.Product;
 using EShop.Infrastructure.Event;
-using EShop.Product.Api.Repositories.Interfaces;
+using EShop.Product.DataProvider.Repositories.Interfaces;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EShop.Product.Api.Repositories
+namespace EShop.Product.DataProvider.Repositories
 {
     public class ProductRepository : IProductRepository
     {

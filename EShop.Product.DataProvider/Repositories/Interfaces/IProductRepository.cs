@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EShop.Product.Api.Repositories.Interfaces
+namespace EShop.Product.DataProvider.Repositories.Interfaces
 {
     public interface IProductRepository
     {
