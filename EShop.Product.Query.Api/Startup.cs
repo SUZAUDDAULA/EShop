@@ -1,5 +1,9 @@
 using EShop.Infrastructure.EventBus;
 using EShop.Infrastructure.Mongo;
+using EShop.Product.Api.Services.Interfaces;
+using EShop.Product.DataProvider.Repositories;
+using EShop.Product.DataProvider.Repositories.Interfaces;
+using EShop.Product.DataProvider.Services;
 using EShop.Product.Query.Api.Handlers;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +29,9 @@ namespace EShop.Product.Query.Api
         {
             services.AddControllers();
             services.AddMongoDb(Configuration);
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<GetProductByIdHandlers>();
 
             //establish connection with rabbitMQ
             services.AddMassTransit(x => {

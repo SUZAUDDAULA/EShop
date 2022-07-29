@@ -1,3 +1,5 @@
+using EShop.Infrastructure.EventBus;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,7 @@ namespace EShop.ApiGetway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddRabbitMq(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +46,8 @@ namespace EShop.ApiGetway
             {
                 endpoints.MapControllers();
             });
+            var bus = app.ApplicationServices.GetService<IBusControl>();
+            //bus.Start();
         }
     }
 }

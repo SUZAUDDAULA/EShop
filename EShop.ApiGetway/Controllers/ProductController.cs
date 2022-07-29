@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EShop.ApiGetway.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -27,14 +27,14 @@ namespace EShop.ApiGetway.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string productId)
+        public async Task<IActionResult> GetProductById(string productId)
         {
             var prdct = new GetProductById() { ProductId = productId };
             var product = await _requestClient.GetResponse<ProductCreated>(prdct);
             return Accepted();
         }
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm] CreateProduct product)
+        public async Task<IActionResult> AddProduct([FromForm] CreateProduct product)
         {
             var uri = new Uri("rabbitmq://localhost/create_product");
             var endPoint =await _bus.GetSendEndpoint(uri);
