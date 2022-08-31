@@ -1,5 +1,6 @@
 using EShop.Infrastructure.EventBus;
 using EShop.Infrastructure.Mongo;
+using EShop.User.Api.Handlers;
 using EShop.User.Api.Repositories;
 using EShop.User.Api.Services;
 using MassTransit;
@@ -28,12 +29,13 @@ namespace EShop.User.Api
             services.AddMongoDb(Configuration);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
-
+            services.AddScoped<CreateUserHandler>();
 
             var rabbitmqOption = new RabbitMqOption();
             Configuration.GetSection("rabbitmq").Bind(rabbitmqOption);
 
             services.AddMassTransit(x => {
+                x.AddConsumer<CreateUserHandler>();
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg => {
                     cfg.Host(new Uri(rabbitmqOption.ConnectionString), hostConfig => {
                         hostConfig.Username(rabbitmqOption.Username);
@@ -43,6 +45,7 @@ namespace EShop.User.Api
                     cfg.ReceiveEndpoint("add_user", ep => {
                         ep.PrefetchCount = 16;
                         ep.UseMessageRetry(retryConfig => { retryConfig.Interval(2, 100); });
+                        ep.ConfigureConsumer<CreateUserHandler>(provider);
                     });
                 }));
             });
@@ -62,6 +65,10 @@ namespace EShop.User.Api
             app.UseAuthorization();
             var dbInitializer = app.ApplicationServices.GetService<IDatabaseInitializer>();
             dbInitializer.InitializeAsync();
+
+            var busControl = app.ApplicationServices.GetService<IBusControl>();
+            busControl.Start();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

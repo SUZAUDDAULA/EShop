@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EShop.User.Api
+namespace EShop.User.Api.Handlers
 {
     public class CreateUserHandler : IConsumer<CreateUser>
     {

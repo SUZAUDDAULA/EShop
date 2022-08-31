@@ -1,5 +1,6 @@
 ﻿using EShop.Infrastructure.Command.Product;
 using EShop.Infrastructure.Event;
+using EShop.Infrastructure.Event.Product;
 using EShop.Infrastructure.Query.Product;
 using MassTransit;
 using Microsoft.AspNetCore.Http;
