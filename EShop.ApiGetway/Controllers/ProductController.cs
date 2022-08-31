@@ -29,9 +29,18 @@ namespace EShop.ApiGetway.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProductById(string productId)
         {
-            var prdct = new GetProductById() { ProductId = productId };
-            var product = await _requestClient.GetResponse<ProductCreated>(prdct);
-            return Accepted();
+            try
+            {
+                var prdct = new GetProductById() { ProductId = productId };
+                var product = await _requestClient.GetResponse<ProductCreated>(prdct);
+                return Accepted(product);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromForm] CreateProduct product)

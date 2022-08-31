@@ -46,7 +46,6 @@ namespace EShop.Product.Query.Api
                         hostcfg.Password(rabbitMq.Password);
                     });
                 }));
-                
             });
         }
 
