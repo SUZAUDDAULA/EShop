@@ -1,5 +1,6 @@
 ﻿using EShop.Infrastructure.Command.Product;
 using EShop.Infrastructure.Event;
+using EShop.Infrastructure.Event.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;

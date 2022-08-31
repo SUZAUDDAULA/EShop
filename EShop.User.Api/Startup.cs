@@ -1,3 +1,6 @@
+using EShop.Infrastructure.Mongo;
+using EShop.User.Api.Repositories;
+using EShop.User.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +28,9 @@ namespace EShop.User.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMongoDb(Configuration);
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,7 +44,8 @@ namespace EShop.User.Api
             app.UseRouting();
 
             app.UseAuthorization();
-
+            var dbInitializer = app.ApplicationServices.GetService<IDatabaseInitializer>();
+            dbInitializer.InitializeAsync();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

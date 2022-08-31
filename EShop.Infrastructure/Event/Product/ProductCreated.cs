@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EShop.Infrastructure.Event
+namespace EShop.Infrastructure.Event.Product
 {
     public class ProductCreated
     {
