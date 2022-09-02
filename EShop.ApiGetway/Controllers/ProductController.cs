@@ -38,7 +38,6 @@ namespace EShop.ApiGetway.Controllers
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             

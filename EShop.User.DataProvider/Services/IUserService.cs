@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EShop.User.Api.Repositories
+namespace EShop.User.DataProvider.Services
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         Task<UserCreated> AddUser(CreateUser user);
         Task<UserCreated> GetUser(CreateUser user);
+        Task<UserCreated> GetUserByUsername(string userName);
     }
 }

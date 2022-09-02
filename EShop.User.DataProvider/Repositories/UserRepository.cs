@@ -6,17 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EShop.User.Api.Repositories
+namespace EShop.User.DataProvider.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private IMongoDatabase _database;
-        private IMongoCollection<CreateUser> _collection => _database.GetCollection<CreateUser>("user");
-        //private IMongoCollection<CreateUser> _collection;
+        //private IMongoCollection<CreateUser> _collection => _database.GetCollection<CreateUser>("user");
+        private IMongoCollection<CreateUser> _collection;
         public UserRepository(IMongoDatabase database)
         {
             _database = database;
-            //_collection=database.GetCollection<CreateUser>("user");
+            _collection=database.GetCollection<CreateUser>("user");
         }
 
         public async Task<UserCreated> AddUser(CreateUser user)
@@ -46,6 +46,24 @@ namespace EShop.User.Api.Repositories
                 EmailId=userResult.EmailId,
                 Password=userResult.Password,
                 UserId=userResult.UserId
+            };
+        }
+
+        public async Task<UserCreated> GetUserByUsername(string userName)
+        {
+            //var userResult = await _collection.AsQueryable().FirstOrDefaultAsync(usr => usr.Username == userName);
+            var userResult = _collection.AsQueryable().Where(usr => usr.UserName == userName).FirstOrDefault();
+            await Task.CompletedTask;
+            if (userResult == null)
+                return new UserCreated();
+
+            return new UserCreated()
+            {
+                UserName = userResult.UserName,
+                ContactNo = userResult.ContactNo,
+                EmailId = userResult.EmailId,
+                Password = userResult.Password,
+                UserId = userResult.UserId
             };
         }
     }

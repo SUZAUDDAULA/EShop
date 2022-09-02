@@ -1,9 +1,6 @@
 ﻿using EShop.Infrastructure.Command.User;
-using EShop.User.Api.Services;
+using EShop.User.DataProvider.Services;
 using MassTransit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EShop.User.Api.Handlers

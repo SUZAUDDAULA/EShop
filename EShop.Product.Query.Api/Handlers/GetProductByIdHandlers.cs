@@ -1,4 +1,5 @@
 ﻿using EShop.Infrastructure.Event;
+using EShop.Infrastructure.Event.Product;
 using EShop.Infrastructure.Query.Product;
 using EShop.Product.Api.Services.Interfaces;
 using MassTransit;

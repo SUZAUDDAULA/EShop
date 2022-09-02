@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Order.Api", "EShop.Or
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Infrastructure", "EShop.Infrastructure\EShop.Infrastructure.csproj", "{0B97ACC8-B287-4C1A-A1E3-7483968E0A2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Product.Query.Api", "EShop.Product.Query.Api\EShop.Product.Query.Api.csproj", "{8DCFBD12-EA10-4BF8-9BB2-F6D0F39D54AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Product.Query.Api", "EShop.Product.Query.Api\EShop.Product.Query.Api.csproj", "{8DCFBD12-EA10-4BF8-9BB2-F6D0F39D54AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Product.DataProvider", "EShop.Product.DataProvider\EShop.Product.DataProvider.csproj", "{0A8631F9-6143-447D-AC96-EC82D0CA5477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Product.DataProvider", "EShop.Product.DataProvider\EShop.Product.DataProvider.csproj", "{0A8631F9-6143-447D-AC96-EC82D0CA5477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.User.DataProvider", "EShop.User.DataProvider\EShop.User.DataProvider.csproj", "{F9C78E85-5766-47EA-B907-7E843345A0EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.User.Query.Api", "EShop.User.Query.Api\EShop.User.Query.Api.csproj", "{C0C1A925-11CA-4B2B-925E-1AB0FDB53B4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{0A8631F9-6143-447D-AC96-EC82D0CA5477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A8631F9-6143-447D-AC96-EC82D0CA5477}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A8631F9-6143-447D-AC96-EC82D0CA5477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9C78E85-5766-47EA-B907-7E843345A0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9C78E85-5766-47EA-B907-7E843345A0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9C78E85-5766-47EA-B907-7E843345A0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9C78E85-5766-47EA-B907-7E843345A0EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0C1A925-11CA-4B2B-925E-1AB0FDB53B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0C1A925-11CA-4B2B-925E-1AB0FDB53B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0C1A925-11CA-4B2B-925E-1AB0FDB53B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0C1A925-11CA-4B2B-925E-1AB0FDB53B4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

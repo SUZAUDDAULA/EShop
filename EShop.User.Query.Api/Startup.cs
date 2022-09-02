@@ -1,18 +1,23 @@
 using EShop.Infrastructure.EventBus;
 using EShop.Infrastructure.Mongo;
 using EShop.Infrastructure.Security;
-using EShop.User.Api.Handlers;
 using EShop.User.DataProvider.Repositories;
 using EShop.User.DataProvider.Services;
+using EShop.User.Query.Api.Handlers;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace EShop.User.Api
+namespace EShop.User.Query.Api
 {
     public class Startup
     {
@@ -27,31 +32,26 @@ namespace EShop.User.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IEncrypter, Encrypter>();
             services.AddMongoDb(Configuration);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
-            services.AddSingleton<IEncrypter, Encrypter>();
-            services.AddScoped<CreateUserHandler>();
+            services.AddScoped<LoginUserHandler>();
 
-            var rabbitmqOption = new RabbitMqOption();
-            Configuration.GetSection("rabbitmq").Bind(rabbitmqOption);
-
+            //establish connection with rabbitMQ
             services.AddMassTransit(x => {
-                x.AddConsumer<CreateUserHandler>();
-                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg => {
-                    cfg.Host(new Uri(rabbitmqOption.ConnectionString), hostConfig => {
-                        hostConfig.Username(rabbitmqOption.Username);
-                        hostConfig.Password(rabbitmqOption.Password);
-                    });
-
-                    cfg.ReceiveEndpoint("add_user", ep => {
-                        ep.PrefetchCount = 16;
-                        ep.UseMessageRetry(retryConfig => { retryConfig.Interval(2, 100); });
-                        ep.ConfigureConsumer<CreateUserHandler>(provider);
+                x.AddConsumer<LoginUserHandler>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                {
+                    var rabbitMq = new RabbitMqOption();
+                    Configuration.GetSection("rabbitmq").Bind(rabbitMq);
+                    cfg.Host(new Uri(rabbitMq.ConnectionString), hostcfg =>
+                    {
+                        hostcfg.Username(rabbitMq.Username);
+                        hostcfg.Password(rabbitMq.Password);
                     });
                 }));
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
