@@ -26,9 +26,9 @@ namespace EShop.User.Query.Api.Handlers
         {
             var userResult = new UserCreated();
             var user = await _userService.GetUserByUsername(context.Message.Username);
-            if(user.UserId !=null)
+            if(user !=null)
             {
-                var isAllowed = user.ValidatePassword(user,_encrypter);
+                var isAllowed = user.ValidatePassword(context.Message,_encrypter);
                 if (isAllowed)
                     userResult = user;
             }

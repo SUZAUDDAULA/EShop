@@ -38,20 +38,42 @@ namespace EShop.User.Query.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<LoginUserHandler>();
 
-            //establish connection with rabbitMQ
             services.AddMassTransit(x => {
                 x.AddConsumer<LoginUserHandler>();
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
                     var rabbitMq = new RabbitMqOption();
                     Configuration.GetSection("rabbitmq").Bind(rabbitMq);
-                    cfg.Host(new Uri(rabbitMq.ConnectionString), hostcfg =>
-                    {
+
+                    cfg.Host(new Uri(rabbitMq.ConnectionString), hostcfg => {
                         hostcfg.Username(rabbitMq.Username);
                         hostcfg.Password(rabbitMq.Password);
                     });
+                    cfg.ConfigureEndpoints(provider);
                 }));
+
             });
+            //services.AddControllers();
+            //services.AddSingleton<IEncrypter, Encrypter>();
+            //services.AddMongoDb(Configuration);
+            //services.AddScoped<IUserRepository, UserRepository>();
+            //services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<LoginUserHandler>();
+
+            ////establish connection with rabbitMQ
+            //services.AddMassTransit(x => {
+            //    x.AddConsumer<LoginUserHandler>();
+            //    x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+            //    {
+            //        var rabbitMq = new RabbitMqOption();
+            //        Configuration.GetSection("rabbitmq").Bind(rabbitMq);
+            //        cfg.Host(new Uri(rabbitMq.ConnectionString), hostcfg =>
+            //        {
+            //            hostcfg.Username(rabbitMq.Username);
+            //            hostcfg.Password(rabbitMq.Password);
+            //        });
+            //    }));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

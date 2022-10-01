@@ -18,7 +18,7 @@ namespace EShop.User.DataProvider.Extension
             return user;
         }
 
-        public static bool ValidatePassword(this UserCreated user,UserCreated savedUser,IEncrypter encrypter)
+        public static bool ValidatePassword(this UserCreated user, LoginUser savedUser,IEncrypter encrypter)
         {
             return savedUser.Password.Equals(encrypter.GetHash(user.Password, encrypter.GetSalt()));
         }
