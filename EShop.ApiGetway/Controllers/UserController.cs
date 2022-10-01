@@ -37,5 +37,11 @@ namespace EShop.ApiGetway.Controllers
             var userResponse = await _loginRequestClient.GetResponse<UserCreated>(loginUser);
             return Accepted(userResponse.Message);
         }
+
+        public IActionResult GetInfo()
+        {
+            string result = "";
+            return Ok(result);
+        }
     }
 }
